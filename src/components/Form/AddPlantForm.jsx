@@ -1,7 +1,10 @@
-const AddPlantForm = () => {
+import PropTypes from "prop-types";
+import { TbFidgetSpinner } from "react-icons/tb";
+
+const AddPlantForm = ({ handleSubmit, loading }) => {
   return (
     <div className='w-full min-h-[calc(100vh-40px)] flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-10'>
           <div className='space-y-6'>
             {/* Name */}
@@ -107,7 +110,10 @@ const AddPlantForm = () => {
               type='submit'
               className='w-full p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-lime-500 '
             >
-              Save & Continue
+              {
+                loading ? <TbFidgetSpinner className='animate-spin m-auto' /> : 'Save & Continue'
+              }
+
             </button>
           </div>
         </div>
@@ -115,5 +121,9 @@ const AddPlantForm = () => {
     </div>
   )
 }
+AddPlantForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 
 export default AddPlantForm
