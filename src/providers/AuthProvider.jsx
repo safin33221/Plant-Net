@@ -1,4 +1,4 @@
-  /* eslint-disable react/prop-types */
+/* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from 'react'
 import {
   GoogleAuthProvider,
@@ -55,7 +55,12 @@ const AuthProvider = ({ children }) => {
       console.log('CurrentUser-->', currentUser?.email)
       if (currentUser?.email) {
         setUser(currentUser)
-
+        //save user in data base
+        await axios.post(`${import.meta.env.VITE_API_URL}/user/${currentUser?.email}`, {
+          name: currentUser?.displayName,
+          image: currentUser?.photoURL,
+          email: currentUser?.email
+        })
         // Get JWT token
         await axios.post(
           `${import.meta.env.VITE_API_URL}/jwt`,
